@@ -1,24 +1,20 @@
-import Banner from './components/Banner/index';
-import Companies from './components/Companies/index';
-import Work from './components/Work/index';
-import Table from './components/Table/index';
-import Features from './components/Features/index';
-import Simple from './components/Simple/index';
-import Trade from './components/Trade/index';
-import Faq from './components/Faq/index';
+"use client";
 
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  return (
-    <main>
-      <Banner />
-      <Companies />
-      <Work />
-      <Table />
-      <Features />
-      <Simple />
-      <Trade />
-      <Faq />
-    </main>
-  )
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem("adminToken");
+
+    if (!token) {
+      router.push("/login");    // not logged in → go to login
+    } else {
+      router.push("/dashboard"); // logged in → go to dashboard
+    }
+  }, []);
+
+  return null; // no need to render anything
 }
